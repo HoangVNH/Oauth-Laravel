@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login-clutch', ['middleware' => 'guest', function() {
+    return view('login-clutch');
+}]);
+
+Route::get('auth/linkedin', 'Auth\LoginController@redirectToProvider');
+
+Route::get('auth/linkedin/callback', 'Auth\LoginController@handleProviderCallback');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
