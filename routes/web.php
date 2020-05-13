@@ -29,6 +29,12 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::get('/dashboard', 'DashboardController@index');
+// Start Users Route
+Route::get('/users', 'UserController@index')->name('users.index');
 
-Route::post('/dashboard', 'DashboardController@findOrCreate');
+Route::post('/users', 'UserController@create')->name('users.create');
+
+Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
+
+Route::put('/users/{id}', 'UserController@update')->name('users.update');
+// End Users Route

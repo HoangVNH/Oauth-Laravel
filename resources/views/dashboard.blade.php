@@ -2,12 +2,22 @@
 
 @section('content')
 
+  @if($errors->any())
+    <div class="alert alert-danger d-flex justify-content-center align-items-center">
+      <ul>
+        @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
   @if(\Session::has('success'))
-    <div class="alert alert-success text-center">
+    <div class="alert alert-success d-flex justify-content-center align-items-center">
       <p>{{ \Session::get('success') }}</p>
     </div>
   @elseif(\Session::has('failed'))
-    <div class="alert alert-danger text-center">
+    <div class="alert alert-danger d-flex justify-content-center align-items-center">
       <p>{{ \Session::get('failed') }}</p>
     </div>
   @endif
@@ -15,7 +25,7 @@
   <div class="dashboard-wrapper">
     <nav class="side-bar">
       <ul>
-        <li><a href="/dashboard">Users</a></li>
+        <li><a href="/users">Users</a></li>
       </ul>
     </nav>
     <div class="container-fluid dashboard-right">
@@ -31,6 +41,7 @@
         <table class="table table-hover" id="myTable">
           <thead>
             <tr>
+              <th scope="col" style="display: none;">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Action</th>
@@ -39,11 +50,12 @@
           <tbody>
             @foreach($users as $user)
               <tr>
+                <td style="display: none;">{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
                   <button><i class="far fa-edit fa-lg edit" data-toggle="modal" data-target="#editUserModal"></i></button>
-                  <button><i class="far fa-trash-alt fa-lg" ></i></button>
+                  <button><i class="far fa-trash-alt fa-lg delete" data-toggle="modal" data-target="#deleteUserModal"></i></button>
                 </td>
               </tr>
             @endforeach
@@ -60,7 +72,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="{{ action('DashboardController@findOrCreate') }}" method="POST">
+              <form action="{{ route('users.create') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                   <div class="form-group">
@@ -97,9 +109,9 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="{{ action('DashboardController@findOrCreate') }}" method="POST" id="editForm">
-                @csrf
+              <form method="POST" id="editForm">
                 @method('PUT')
+                @csrf
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="name">Name</label>
@@ -116,8 +128,34 @@
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary update" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- End Edit Modal -->
+
+        <!-- Start Delete Modal -->
+        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form method="POST" id="deleteForm">
+                @method('DELETE')
+                @csrf
+                <div class="modal-body">
+                  <p>Are you sure to delete this user? </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
               </form>
             </div>
@@ -138,20 +176,34 @@
 
       var table = $('#myTable').DataTable();
 
-      // Start edit user
-      table.on('click', '.edit', function() {
-        $tr = $(this).closest('tr');
-        if($($tr).hasClass('child')) {
-          $tr = $tr.prev('.parent');
+      // Start Edit User
+      table.on("click", ".edit", function() {
+        $tr = $(this).closest("tr");
+        if($($tr).hasClass("child")) {
+          $tr = $tr.prev(".parent");
         }
 
         var data = table.row($tr).data();
 
-        $('#name').val(data[0]);
-        $('#email').val(data[1]);
+        $("#name").val(data[1]);
+        $("#email").val(data[2]);
 
+        $("#editForm").attr("action", "/users/" + data[0])
+      });
+      // End Edit User
 
-      })
+      // Start Edit User
+      table.on("click", ".delete", function() {
+        $tr = $(this).closest("tr");
+        if($($tr).hasClass("child")) {
+          $tr = $tr.prev(".parent");
+        }
+
+        var data = table.row($tr).data();
+
+        $("#deleteForm").attr("action", "/users/" + data[0])
+      });
+      // End Edit User
     });
   </script>
 @endsection
