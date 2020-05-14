@@ -1,27 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-  @if($errors->any())
-    <div class="alert alert-danger d-flex justify-content-center align-items-center">
-      <ul>
-        @foreach($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
-
-  @if(\Session::has('success'))
-    <div class="alert alert-success d-flex justify-content-center align-items-center">
-      <p>{{ \Session::get('success') }}</p>
-    </div>
-  @elseif(\Session::has('failed'))
-    <div class="alert alert-danger d-flex justify-content-center align-items-center">
-      <p>{{ \Session::get('failed') }}</p>
-    </div>
-  @endif
-
   <div class="dashboard-wrapper">
     <nav class="side-bar">
       <ul>
@@ -29,6 +8,33 @@
       </ul>
     </nav>
     <div class="container-fluid dashboard-right">
+      @if (\Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>{{ \Session::get('success') }}</p>
+        </div>
+      @elseif (\Session::has('failed'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>{{ \Session::get('failed') }}</p>
+        </div>
+      @endif
+      @if (count($errors) > 0 )
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <ul class="p-0 m-0" style="list-style: none;">
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
       <div class="heading-container">
         <h1 class="mt-4">Dashboard</h1>
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createUserModal">
@@ -41,7 +47,7 @@
         <table class="table table-hover" id="myTable">
           <thead>
             <tr>
-              <th scope="col" style="display: none;">ID</th>
+              <th scope="col" class="table-hidden">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Action</th>
@@ -50,7 +56,7 @@
           <tbody>
             @foreach($users as $user)
               <tr>
-                <td style="display: none;">{{ $user->id }}</td>
+                <td class="table-hidden">{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
@@ -67,10 +73,8 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Create new user</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="createUserTitle">Create new user</h5>
+
               </div>
               <form action="{{ route('users.create') }}" method="POST">
                 @csrf
@@ -105,9 +109,6 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Edit user</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <form method="POST" id="editForm">
                 @method('PUT')
@@ -143,9 +144,6 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Delete user</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <form method="POST" id="deleteForm">
                 @method('DELETE')

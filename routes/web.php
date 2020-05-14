@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::get('/login-clutch', ['middleware' => 'guest', function() {
     return view('login-clutch');
 }]);
@@ -27,7 +31,7 @@ Route::get('auth/linkedin/callback', 'Auth\LoginController@handleProviderCallbac
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home', 'HomeController@index')->name('home');
 
 // Start Users Route
 Route::get('/users', 'UserController@index')->name('users.index');

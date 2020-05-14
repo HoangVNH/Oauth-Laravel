@@ -248,3 +248,7 @@ input[type=text] {
   margin-right: 8px;
 }
 
+.content .table-hidden {
+  display: none;
+}
+

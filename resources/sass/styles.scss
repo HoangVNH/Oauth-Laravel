@@ -286,13 +286,15 @@ input[type=text] {
 
 .content {
 
-
-
     td {
         button {
             width: 24px;
             height: 24px;
             margin-right: 8px;
         }
+    }
+
+    .table-hidden {
+        display: none;
     }
 }
