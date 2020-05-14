@@ -68,8 +68,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
+                        <span class="caret">Hi, {{ Auth::user()->name }}</span>
                         <a href="{{ url('/home') }}">Home</a>
                     @else
+                        <a href="{{ url('login-clutch') }}">LinkedIn</a>
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))

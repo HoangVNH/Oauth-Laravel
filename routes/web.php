@@ -16,3 +16,29 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/login-clutch', ['middleware' => 'guest', function() {
+    return view('login-clutch');
+}]);
+
+Route::get('auth/linkedin', 'Auth\LoginController@redirectToProvider');
+
+Route::get('auth/linkedin/callback', 'Auth\LoginController@handleProviderCallback');
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Start Users Route
+Route::get('/users', 'UserController@index')->name('users.index');
+
+Route::post('/users', 'UserController@create')->name('users.create');
+
+Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
+
+Route::put('/users/{id}', 'UserController@update')->name('users.update');
+// End Users Route

@@ -1,0 +1,254 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: #17313B;
+  line-height: normal;
+}
+
+.login_wrapper {
+  display: flex;
+  height: 100vh;
+  background-color: #17313B;
+}
+
+.login_container {
+  margin: auto;
+  padding: 5vh 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+}
+
+.login_container .logo {
+  margin: 0 auto 56px auto;
+}
+
+.login_container img {
+  max-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.form_wrap {
+  padding: 40px;
+  width: 100%;
+  position: relative;
+  border: 1px solid #CAE0E7;
+  background: #FFF;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header .title {
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.header .header_icon {
+  margin-top: 2px;
+  min-width: 22px;
+  width: 22px;
+}
+
+.linkedin .linkedin_title {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.linkedin .linkedin_title_icon {
+  margin-left: 5px;
+  height: 15px;
+  width: 15px;
+}
+
+.linkedin .linkedin_title_icon .linkedin_title_button {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.linkedin .linkedin_button {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #027BB6;
+  color: #FFF;
+  border-radius: 1px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.linkedin .linkedin_button img {
+  width: 40px;
+}
+
+.linkedin .linkedin_button:hover {
+  background: #3595C5;
+}
+
+.content .separator {
+  margin-top: 57px;
+  position: relative;
+}
+
+.content .separator::before {
+  height: 1px;
+  width: 124%;
+  position: absolute;
+  left: -41px;
+  top: -23px;
+  content: " ";
+  background-color: #CAE0E7;
+}
+
+.content .content_title {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.content .input_wrap {
+  margin-bottom: 20px;
+}
+
+.content .input_title {
+  margin-bottom: 8px;
+  color: #17313B;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border-style: none;
+  background: transparent;
+}
+
+input[type=text] {
+  padding: 11px 43px 10px 10px;
+  width: 100%;
+  border: 2px solid #CAE0E7;
+}
+
+.form_button {
+  margin-bottom: 10px;
+}
+
+.form_button .next {
+  padding: 11px 10px 10px;
+  width: 100%;
+  border: 2px solid #CAE0E7;
+  border-radius: 1px;
+  color: #08537e;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.form_button .next:hover {
+  border-color: #CAE0E7;
+  background: #CAE0E7;
+}
+
+.form_button button span {
+  display: inline-block;
+  color: #08537E;
+}
+
+.form_button button.next::after {
+  margin-left: 4px;
+  height: 7px;
+  width: 8px;
+  content: "";
+  display: inline-block;
+  transform: rotate(45deg);
+  border: 1px solid red;
+  border-bottom: none;
+  border-left: none;
+  position: relative;
+  top: -1px;
+}
+
+.info-text a {
+  color: #3E839E;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}
+
+.dashboard-wrapper {
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+}
+
+.side-bar {
+  max-width: 300px;
+  min-width: 300px;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.side-bar ul {
+  list-style: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.side-bar ul li {
+  padding: 12px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-right: 0;
+  cursor: pointer;
+}
+
+.side-bar ul li:hover {
+  background-color: #dae0e5;
+}
+
+.side-bar a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #17313B;
+  width: 100%;
+}
+
+.dashboard-right {
+  min-height: 100vh;
+}
+
+.dashboard-right .heading-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content td button {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.content .table-hidden {
+  display: none;
+}
+
